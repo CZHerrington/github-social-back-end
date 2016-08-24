@@ -62,7 +62,7 @@ class RepoController {
 
 
   * allRepos (request, response) {
-      const repos    = yield Database.table('repos').orderBy('id', 'desc')
+      const repos    = yield Database.table('repos').orderBy('upvote_count', 'desc')
       const comments = yield Database.table('comments').orderBy('repo_id', 'desc')
 
       // the forEach loop finds the number of comments for each repo and adds that to the 'comment_total' attribute of each repository
