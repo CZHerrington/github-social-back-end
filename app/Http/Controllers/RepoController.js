@@ -25,12 +25,12 @@ class RepoController {
     const input   = request.only ('repo_id')
     const user    = request.authUser
     const repo_id = input.repo_id
-    const search  = yield Database.table('repos').where('id', repo_id)
-    const repo    = search[0]
+    // const search  = yield Database.table('repos').where('id', repo_id)  // Shouldn't need this anymore
+    const repo    = yield Repo.findBy('id', repo_id)
     const res     = {}
     res.repo = repo, res.user = user
 
-    console.log(chalk.red('\nDELETE REPO REQUEST') + chalk.blue('\nuser:     ', user.github, user.id, "\nrepoId:", repo_id, "\nrepo:  ", repo.content))
+    console.log(chalk.red('\nDELETE REPO REQUEST') + chalk.blue('\nuser:     ', user.github, user.id, "\nrepoId:", repo_id, "\nrepo:  ", repo.user_description))
     try{
       if (repo.user_id === user.id) {
         console.log(chalk.red.bold('repo',repo_id, 'will be deleted'))
